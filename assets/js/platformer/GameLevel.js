@@ -24,7 +24,7 @@ class GameLevel {
         
         // test for presence of Images
         const imagesToLoad = [];
-        if(this.backgroundImg2) {
+        if (this.backgroundImg2) {
             imagesToLoad.push(this.loadImage(this.backgroundImg2));
         }
         if (this.backgroundImg) {
@@ -50,7 +50,7 @@ class GameLevel {
                 const backgroundCanvas = document.createElement("canvas");
                 backgroundCanvas.id = "background";
                 document.querySelector("#canvasContainer").appendChild(backgroundCanvas);
-                const backgroundSpeedRatio = 0;
+                const backgroundSpeedRatio = 0.1;
                 new Background(backgroundCanvas, loadedImages[i], backgroundSpeedRatio);
                 i++;
             }
