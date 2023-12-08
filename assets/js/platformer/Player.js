@@ -165,6 +165,12 @@ export class Player extends Character{
             if (event.key in this.pressedKeys) {
                 delete this.pressedKeys[event.key];
             }
+            if (key === "a") {
+                GameEnv.backgroundSpeed = 0;
+            }
+            if (key === "d") {
+                GameEnv.backgroundSpeed = 0;
+            }
             this.setAnimation(key);  
             // player idle
             this.isIdle = true;     
