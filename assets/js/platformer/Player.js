@@ -149,6 +149,12 @@ export class Player extends Character{
                 // player active
                 this.isIdle = false;
             }
+            if (key === "a") {
+                GameEnv.backgroundSpeed = 0.1;
+            }
+            if (key === "d") {
+                GameEnv.backgroundSpeed = -0.1;
+            }
         }
     }
 
