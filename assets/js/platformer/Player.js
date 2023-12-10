@@ -150,10 +150,10 @@ export class Player extends Character{
                 this.isIdle = false;
             }
             if (key === "a") {
-                GameEnv.backgroundSpeed = 0.1;
+                GameEnv.backgroundSpeed = -0.1;
             }
             if (key === "d") {
-                GameEnv.backgroundSpeed = -0.1;
+                GameEnv.backgroundSpeed = 0.1;
             }
         }
     }

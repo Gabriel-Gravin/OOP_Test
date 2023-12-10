@@ -43,6 +43,9 @@ image: /images/platformer/backgrounds/hills.png
 
     // Define assets for the game
     var assets = {
+      platformO: {
+        grass: { src: "/images/brick_wall.png" },
+      },
       obstacles: {
         tube: { src: "/images/platformer/obstacles/tube.png" },
       },

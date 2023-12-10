@@ -3,6 +3,7 @@ import Background from './Background.js';
 import Platform from './Platform.js';
 import Player from './Player.js';
 import Tube from './Tube.js';
+import Background2 from './Background2.js';
 
 // Store the assets and attributes of the Game at the specific GameLevel.
 class GameLevel {
@@ -50,8 +51,8 @@ class GameLevel {
                 const backgroundCanvas = document.createElement("canvas");
                 backgroundCanvas.id = "background";
                 document.querySelector("#canvasContainer").appendChild(backgroundCanvas);
-                const backgroundSpeedRatio = 0.1;
-                new Background(backgroundCanvas, loadedImages[i], backgroundSpeedRatio);
+                const backgroundSpeedRatio = 0;
+                new Background2(backgroundCanvas, loadedImages[i], backgroundSpeedRatio);
                 i++;
             }
 
