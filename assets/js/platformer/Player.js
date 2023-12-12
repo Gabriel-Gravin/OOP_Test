@@ -1,5 +1,6 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
+import deathController from './Death.js';
 
 export class Player extends Character{
     // constructors sets up Character object 
@@ -137,6 +138,22 @@ export class Player extends Character{
             this.movement.right = true;
             this.movement.down = true;
         }
+        // Enemy collision
+        if (this.collisionData.touchPoints.other.id === "enemy") {
+            // Collision with the left side of the Enemy
+            if (this.collisionData.touchPoints.other.left) {
+                deathController.setDeath(1);
+            }
+            // Collision with the right side of the Enemy
+            if (this.collisionData.touchPoints.other.right) {
+                deathController.setDeath(1);
+            }
+            // Collision with the top of the Enemy
+            if (this.collisionData.touchPoints.other.ontop) {
+                this.y -= (this.bottom * 0.33);
+                this.collisionData.touchPoints.other.destroy();
+            }
+          }
     }
     
     // Event listener key down
