@@ -94,7 +94,7 @@ class GameLevel {
 
             if (this.platformOImg) {
                 const platformOCanvas = document.createElement("canvas");
-                platformOCanvas.id = "platformO";
+                platformOCanvas.id = "jumpPlatform";
                 document.querySelector("#canvasContainer").appendChild(platformOCanvas);
                 const platformOSpeedRatio = 0;
                 new PlatformO(platformOCanvas, loadedImages[i], platformOSpeedRatio);
@@ -136,7 +136,7 @@ class GameLevel {
                 const platformSpeedRatio = 0;
                 new Thing1(platformCanvas, loadedImages[i], platformSpeedRatio);
                 i++;
-            }
+            };
 
         } catch (error) {
             console.error('Failed to load one or more images:', error);
