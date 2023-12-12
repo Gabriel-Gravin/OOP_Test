@@ -52,7 +52,7 @@ const GameControl = {
                     } 
                 }
                 if (deathController.getDeath() === 1) {
-                    const currentIndex = GameEnv.levels.indedOf(currentLevel);
+                    const currentIndex = GameEnv.levels.indexOf(currentLevel);
                     this.transitionToLevel(GameEnv.levels[currentIndex]);
                     deathController.setDeath(0);
                 }
