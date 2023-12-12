@@ -154,7 +154,7 @@ export class Player extends Character{
                 this.collisionData.touchPoints.other.destroy();
             }
           }
-          if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
+        if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             // Collision with the left side of the Platform
             console.log("id")
             if (this.collisionData.touchPoints.other.left && (this.topOfPlatform === true)) {
@@ -188,6 +188,18 @@ export class Player extends Character{
                 this.movement.right = true;
                 this.movement.down = true;
                 this.gravityEnabled = true;
+            }
+        }
+        if (this.collisionData.touchPoints.other.id === "thing2") {
+            if (this.collisionData.touchPoints.coin.left) {
+                this.touchCoin = true;
+                console.log("o")
+                window.location.reload();
+            }
+            if (this.collisionData.touchPoints.coin.right) {
+                console.log("p")
+                this.touchCoin = true;
+                window.location.reload();
             }
         }
     }
