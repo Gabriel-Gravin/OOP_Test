@@ -131,7 +131,7 @@ class GameLevel {
             }
             if (this.thingImg) {
                 const platformCanvas = document.createElement("canvas");
-                platformCanvas.id = "thing2";
+                platformCanvas.id = "thing1";
                 document.querySelector("#canvasContainer").appendChild(platformCanvas);
                 const platformSpeedRatio = 0;
                 new Thing1(platformCanvas, loadedImages[i], platformSpeedRatio);

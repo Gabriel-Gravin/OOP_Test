@@ -5,7 +5,8 @@ export class GameEnv {
     static levels = [];
     static gameObjects = [];
 
-    // game attributes
+    // game 
+    static touchCoin = false;
     static backgroundSpeed = 0;
     static backgroundSpeed2 = 0;
     static gameSpeed = 2;
@@ -108,7 +109,17 @@ export class GameEnv {
             }
         }
         this.isInverted = !this.isInverted;  // switch boolean value
-    }
+    };
+
+    static touchingCoin() {
+        let score = 0;
+        let coinValue = 0;
+        score = 0;
+        coinValue = 0;
+        if (touchCoin === true) {
+            window.location.reload();
+        }
+    };
 }
 
 export default GameEnv;
