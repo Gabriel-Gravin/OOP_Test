@@ -139,13 +139,11 @@ class GameObject {
         const percentage = 0.3;
         const widthReduction = thisRect.width * percentage;
         const heightReduction = thisRect.height * (percentage - 0.35);
-
-    
-         // Build hitbox by subtracting reductions from the left, right, top, and bottom
-         const thisLeft = thisRect.left + widthReduction;
-         const thisTop = thisRect.top + heightReduction;
-         const thisRight = thisRect.right - widthReduction;
-         const thisBottom = thisRect.bottom - heightReduction;
+        // Build hitbox by subtracting reductions from the left, right, top, and bottom
+        const thisLeft = thisRect.left + widthReduction;
+        const thisTop = thisRect.top + heightReduction;
+        const thisRight = thisRect.right - widthReduction;
+        const thisBottom = thisRect.bottom - heightReduction;
     
         // Determine hit and touch points of hit
         this.collisionData = {
