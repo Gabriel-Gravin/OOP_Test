@@ -14,6 +14,8 @@ const GameControl = {
     // Level transition method (destroy then newlevel)
     async transitionToLevel(newLevel) {
         this.inTransition = true;
+        GameEnv.backgroundSpeed = 0;
+        GameEnv.backgroundSpeed2 = 0;
 
         // Destroy existing game objects
         GameEnv.destroy();
