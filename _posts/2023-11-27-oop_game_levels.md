@@ -63,6 +63,7 @@ image: /images/platformer/backgrounds/hills.png
     <div id="controls"> <!-- Controls -->
         <!-- Background controls -->
         <button id="toggleCanvasEffect">Invert</button>
+        <button id="leaderboardButton">Leaderboard</button>
     </div>
     <div id="settings"> <!-- Controls -->
         <!-- Background controls -->
@@ -71,6 +72,9 @@ image: /images/platformer/backgrounds/hills.png
     <div id="gameOver" hidden>
         <button id="restartGame">Restart</button>
     </div>
+</div>
+<div id="score" style="position: absolute; top: 75px; left: 10px; color: black; font-size: 20px; background-color: white;">
+   Time: <span id="timeScore">0</span>
 </div>
 
 <script type="module">
@@ -144,6 +148,67 @@ image: /images/platformer/backgrounds/hills.png
       }
     };
 
+    // we put this in the oop file after our assets
+
+// Function to switch to the leaderboard screen
+function showLeaderboard() {
+    const id = document.getElementById("gameOver");
+    id.hidden = false;
+    // Hide game canvas and controls
+    document.getElementById('canvasContainer').style.display = 'none';
+    document.getElementById('controls').style.display = 'none';
+
+  // Create and display leaderboard section
+  const leaderboardSection = document.createElement('div');
+  leaderboardSection.id = 'leaderboardSection';
+  leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
+  document.querySelector(".page-content").appendChild(leaderboardSection)
+  // document.body.appendChild(leaderboardSection);
+
+  const playerScores = localStorage.getItem("playerScores")
+  const playerScoresArray = playerScores.split(";")
+  const scoresObj = {}
+  const scoresArr = []
+  for(let i = 0; i< playerScoresArray.length-1; i++){
+    const temp = playerScoresArray[i].split(",")
+    scoresObj[temp[0]] = parseInt(temp[1])
+    scoresArr.push(parseInt(temp[1]))
+  }
+
+  scoresArr.sort()
+
+  const finalScoresArr = []
+  for (let i = 0; i<scoresArr.length; i++) {
+    for (const [key, value] of Object.entries(scoresObj)) {
+      if (scoresArr[i] ==value) {
+        finalScoresArr.push(key + "," + value)
+        break;
+      }
+    }
+  }
+  let rankScore = 1;
+  for (let i =0; i<finalScoresArr.length; i++) {
+    const rank = document.createElement('div');
+    rank.id = `rankScore${rankScore}`;
+    rank.innerHTML = `<h2 style="text-align: center; font-size: 18px;">${finalScoresArr[i]} </h2>`;
+    document.querySelector(".page-content").appendChild(rank)    
+  }
+}
+
+//rest of the code here
+
+// Event listener for leaderboard button to be clicked
+document.getElementById('leaderboardButton').addEventListener('click', showLeaderboard);
+
+  // add File to assets, ensure valid site.baseurl
+  Object.keys(assets).forEach(category => {
+    Object.keys(assets[category]).forEach(assetName => {
+      assets[category][assetName]['file'] = "{{site.baseurl}}" + assets[category][assetName].src;
+    });
+  });
+
+  //this should be above the game level callbacks
+
     // nav bar
     var myController = new Controller();
 
@@ -204,14 +269,28 @@ image: /images/platformer/backgrounds/hills.png
     async function gameOverCallBack() {
       const id = document.getElementById("gameOver");
       id.hidden = false;
-      
+
+      // Store whether the game over screen has been shown before
+      const gameOverScreenShown = localStorage.getItem("gameOverScreenShown");
+
+      // Check if the game over screen has been shown before
+      if (!gameOverScreenShown) {
+        const playerScore = document.getElementById("timeScore").innerHTML;
+        const playerName = prompt(`You scored ${playerScore}! What is your name?`);
+        let temp = localStorage.getItem("playerScores");
+        temp += playerName + "," + playerScore.toString() + ";";
+        localStorage.setItem("playerScores", temp);
+        // Set a flag in local storage to indicate that the game over screen has been shown
+        localStorage.setItem("gameOverScreenShown", "true");
+      }
+
       // Use waitForRestart to wait for the restart button click
       await waitForButton('restartGame');
       id.hidden = true;
-      
       // Change currentLevel to start/restart value of null
       GameEnv.currentLevel = null;
-
+      // Reset the flag so that the game over screen can be shown again on the next game over
+      localStorage.removeItem("gameOverScreenShown");
       return true;
     }
 
@@ -257,4 +336,6 @@ image: /images/platformer/backgrounds/hills.png
     }
     document.getElementById("toggleSettingsBar").addEventListener("click",toggleWidth);
     document.getElementById("toggleSettingsBar1").addEventListener("click",toggleWidth);
+
+  
 </script>
