@@ -30,6 +30,8 @@ export class Player extends Character{
 
         GameEnv.player = this;
     }
+    
+    cooldownTimer;
 
     setAnimation(key) {
         // animation comes from playerData
@@ -104,13 +106,23 @@ export class Player extends Character{
     update() {
         if (this.isAnimation("a")) {
             if (this.movement.left) this.x -= this.speed;  // Move to left
+            this.facingLeft = true;
         }
         if (this.isAnimation("d")) {
             if (this.movement.right) this.x += this.speed;  // Move to right
+            this.facingLeft = false;
         }
         if (this.isGravityAnimation("w")) {
             if (this.movement.down) this.y -= (this.bottom * .44);  // jump 33% higher than bottom
         } 
+        if (this.isAnimation("s")) {
+            if (this.movement) {  // Check if movement is allowed
+                if(this.cooldownTimer) {
+                    const moveSpeed = this.speed * 2;
+                    this.x += this.facingLeft ? -moveSpeed : moveSpeed;
+                }
+            }
+        }
 
         // Perform super update actions
         super.update();
@@ -227,6 +239,16 @@ export class Player extends Character{
                 GameEnv.backgroundSpeed2 = 0.1;
                 GameEnv.backgroundSpeed = 0.4;
             }
+            if (event.key === "s") {
+                this.canvas.style.filter = 'invert(1)';
+    
+                    // Start cooldown timer
+                    this.cooldownTimer = setTimeout(() => {
+                        
+                        clearTimeout(this.cooldownTimer);
+                        this.cooldownTimer = null;
+                    }, 4000);
+            }
         }
     }
 
@@ -249,6 +271,9 @@ export class Player extends Character{
             // player idle
             this.isIdle = true;     
         }
+        if (event.key === "s") {
+            this.canvas.style.filter = 'invert(0)'; //revert to default coloring
+    }
     }
 
     // Override destroy() method from GameObject to remove event listeners
