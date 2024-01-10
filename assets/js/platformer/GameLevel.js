@@ -7,6 +7,7 @@ import Background2 from './Background2.js';
 import Enemy from './Enemy.js';
 import PlatformO from './PlatformO.js';
 import Thing1 from './Thing1.js';
+import Lopez from './Lopez.js';
 
 // Store the assets and attributes of the Game at the specific GameLevel.
 class GameLevel {
@@ -19,6 +20,8 @@ class GameLevel {
         this.platformOImg = gameObject.platformO?.file;
         this.thingImg = gameObject.thing?.file;
         this.playerImg = gameObject.player?.file;
+        this.lopezImg = gameObject.lopez?.file;
+        this.lopezData = gameObject.lopez?.file;
         this.enemyImg = gameObject.enemy?.file;
         this.enemyData = gameObject?.enemy;
         this.playerData = gameObject?.player;
@@ -46,6 +49,9 @@ class GameLevel {
         }
         if (this.playerImg) {
             imagesToLoad.push(this.loadImage(this.playerImg));
+        }
+        if (this.lopezImg) {
+            imagesToLoad.push(this.loadImage(this.lopezImg));
         }
         if (this.enemyImg) {
             imagesToLoad.push(this.loadImage(this.enemyImg));
@@ -111,6 +117,15 @@ class GameLevel {
                 i++;
             }
             
+            if (this.lopezImg) {
+                const lopezCanvas = document.createElement("canvas");
+                lopezCanvas.id = "character";
+                document.querySelector("#canvasContainer").appendChild(lopezCanvas);
+                const lopezSpeedRatio = 2;
+                new Lopez(lopezCanvas, loadedImages[i], lopezSpeedRatio, this.playerData);
+                i++;
+            }
+
             // Prepare Enemy
             if (this.enemyImg) {
                 const enemyCanvas = document.createElement("canvas");
